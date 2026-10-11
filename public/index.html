@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>Nimah Streem Line</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="auth">
+  <div class="card">
+    <img src="logo.png" class="logo" alt="Nimah Streem Line">
+    <p class="tag">Message and call anyone, anywhere</p>
+    <div id="s4" class="step hide">
+      <div class="phone"><span>+</span><input id="pCc" value="94" inputmode="numeric" maxlength="3" aria-label="Country code"><input id="pPhone" placeholder="Phone number" inputmode="tel" autocomplete="tel-national"></div>
+      <input id="pwName" placeholder="Your name" maxlength="30" class="hide">
+      <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
+      <button id="pwGo" class="primary">Sign in</button>
+      <button id="pwSwitch" class="link">Create a new account</button>
+    </div>
+    <div id="s1" class="step hide">
+      <p class="hint">Enter your phone number. We will text you a code to verify it.</p>
+      <div class="phone"><span>+</span><input id="aCc" value="94" inputmode="numeric" maxlength="3" aria-label="Country code"><input id="aPhone" placeholder="Phone number" inputmode="tel" autocomplete="tel-national"></div>
+      <button id="aSend" class="primary">Send code</button>
+    </div>
+    <div id="s2" class="step hide">
+      <p id="aInfo" class="hint"></p>
+      <input id="aCode" placeholder="6-digit code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" class="code">
+      <button id="aVerify" class="primary">Verify</button>
+      <button id="aResend" class="link" disabled></button>
+      <button id="aBack" class="link">Change number</button>
+    </div>
+    <div id="s3" class="step hide">
+      <p class="hint">Almost done. What should people call you?</p>
+      <input id="aName" placeholder="Your name" maxlength="30">
+      <button id="aSave" class="primary">Continue</button>
+    </div>
+    <p id="aErr" class="err"></p>
+  </div>
+</div>
+
+<div id="app" class="hide">
+  <aside class="sidebar">
+    <header>
+      <img src="icon-192.png" class="hl" alt=""><b class="brand"><em>NIMAH</em> Streem Line</b>
+      <button id="btnMenu" class="hb" aria-label="Menu"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+      <div id="menu" class="menu hide"><button id="btnGroup">New group</button><button id="btnOut">Sign out</button></div>
+    </header>
+    <div id="vChats" class="view">
+      <input id="search" class="search" placeholder="Search chats">
+      <div class="chips"><button data-f="all" class="on">All</button><button data-f="unread">Unread</button><button data-f="groups">Groups</button></div>
+      <div id="list" class="scroll"></div>
+      <button id="fab" class="fab" aria-label="New chat"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div id="vUpdates" class="view hide">
+      <div class="compose-st">
+        <input id="stTxt" placeholder="Share a status (24 hours)" maxlength="300">
+        <div class="swatches" id="sw"></div>
+        <button id="stPost" class="primary">Post</button>
+      </div>
+      <div id="stList" class="scroll"></div>
+    </div>
+    <div id="vCalls" class="view hide"><div id="cList" class="scroll"></div></div>
+    <div id="vPeople" class="view hide">
+      <div class="newchat"><span>+</span><input id="ncCc" value="94" inputmode="numeric" maxlength="3" aria-label="Country code"><input id="ncPhone" placeholder="New chat: phone number" inputmode="tel"><button id="ncGo" class="primary">Chat</button></div>
+      <p id="ncErr" class="err" style="padding:0 14px"></p>
+      <input id="pSearch" class="search" placeholder="Search contacts">
+      <div id="people" class="scroll"></div>
+    </div>
+    <div id="vMe" class="view hide scroll">
+      <div class="card flat">
+        <div id="meAv" class="av big"></div>
+        <button id="avBtn" class="link">Change photo</button><input id="avFile" type="file" accept="image/*" hidden>
+        <p id="mePhone" class="hint"></p>
+        <input id="pName" placeholder="Name">
+        <input id="pAbout" placeholder="About" maxlength="80">
+        <button id="pSave" class="primary">Save profile</button>
+        <p id="pMsg" class="hint"></p>
+      </div>
+    </div>
+    <nav class="tabbar">
+      <button data-v="vChats" class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg><span>Chats</span><i id="tbBadge" class="dot hide"></i></button>
+      <button data-v="vUpdates"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="4 3"/></svg><span>Updates</span><i id="stDot" class="dot hide"></i></button>
+      <button data-v="vCalls"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>Calls</span></button>
+      <button data-v="vPeople"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg><span>People</span></button>
+      <button data-v="vMe"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Profile</span></button>
+    </nav>
+  </aside>
+  <main class="chat">
+    <div id="empty" class="empty"><img src="logo.png" alt=""><h2>Nimah Streem Line</h2><p>Select a conversation to start</p></div>
+    <section id="pane" class="hide">
+      <header>
+        <button id="btnBack"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div id="chAv" class="av"></div>
+        <div class="who"><b id="chName"></b><small id="chSub"></small></div>
+        <button id="cVoice" class="hb"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button>
+        <button id="cPin" class="hb txt">Pin</button>
+        <button id="cVideo" class="hb"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg></button>
+      </header>
+      <div id="msgs"></div>
+      <button id="toBottom" class="tob hide" aria-label="Latest messages"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><i id="tobN"></i></button>
+      <div id="rbar" class="rbar hide"><span id="rtxt"></span><button id="rx">Cancel</button></div>
+      <div class="composer">
+        <label class="attach"><svg viewBox="0 0 24 24"><path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/></svg><input id="file" type="file" accept="image/*" hidden></label>
+        <input id="txt" placeholder="Type a message" autocomplete="off">
+        <button id="mic" class="mic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      <button id="send" class="primary hide"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="call" class="hide">
+  <video id="rv" autoplay playsinline></video>
+  <video id="lv" autoplay playsinline muted></video>
+  <div class="cinfo"><b id="cName"></b><span id="cState"></span></div>
+  <div class="cbtns">
+    <button id="cMute">Mute</button><button id="cCam" class="vonly">Camera off</button>
+    <button id="cAcc" class="acc">Accept</button><button id="cEnd" class="end">End</button>
+  </div>
+</div>
+
+<div id="lb" class="hide"><img id="lbi" alt=""></div>
+
+<div id="fwd" class="mbg hide"><div class="card"><h3>Forward to</h3><div id="fList" class="flist"></div><div class="row"><button id="fCancel">Cancel</button></div></div></div>
+
+<div id="modal" class="hide">
+  <div class="card">
+    <h3>New group</h3>
+    <input id="gName" placeholder="Group name">
+    <div id="gUsers"></div>
+    <div class="row"><button id="gCancel">Cancel</button><button id="gCreate" class="primary">Create</button></div>
+    <p id="gErr" class="err"></p>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
